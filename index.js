@@ -21,8 +21,8 @@ app.post("/tin-tuc", async (req, res) => {
     let objRes = {
         data: []
     }
-    feed.items.forEach(item => {
-        objRes.data.push({message: item.title})
+    feed.items.forEach((item, index) => {
+        if (index < 10) objRes.data.push({message: item.title})
     })
 
     res.json(objRes);
