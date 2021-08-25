@@ -17,7 +17,15 @@ app.get("/", async (req, res) => {
 });
 
 app.post("/tin-tuc", async (req, res) => {
-    res.send("Han pro");
+    let feed = await parser.parseURL('https://vnexpress.net/rss/tin-moi-nhat.rss');
+    let objRes = {
+        data: []
+    }
+    feed.items.forEach(item => {
+        objRes.data.push({message: item.title})
+    })
+
+    res.json(objRes);
 });
 
 app.post("/thoi-tiet", async (req, res) => {
