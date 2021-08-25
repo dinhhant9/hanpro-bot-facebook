@@ -1,5 +1,6 @@
 const express = require("express");
 const request = require('request');
+const moment = require('moment');
 const app = express();
 const cors = require('cors');
 const port = process.env.PORT || 3000;
@@ -41,6 +42,30 @@ app.post("/thoi-tiet", async (req, res) => {
         }
         res.json(objRes);
     });
+});
+
+app.post("/luong", async (req, res) => {
+    let a = moment();
+    let b = moment().add(1, 'M').set("date", 5);
+
+    let dayOfWeek = b.day()
+    if (dayOfWeek === 0) {
+        b = moment().add(1, 'M').set("date", 6);
+    }
+    if (dayOfWeek === 6) {
+        b = moment().add(1, 'M').set("date", 4);
+    }
+
+    let diff = a.diff(b, 'days')
+
+    let objRes = {
+        data: [
+            {
+                message: "Còn " + Math.abs(diff) + " ngày nữa nhận lương (" + b.format("DD/MM/YYYY") + ")"
+            }
+        ]
+    }
+    res.json(objRes);
 });
 
 app.post("/gia-xang", async (req, res) => {
