@@ -20,14 +20,16 @@ app.get("/tin-tuc", async (req, res) => {
     res.json(feed);
 });
 
-app.get("/thoi-tiet", async (req, res) => {
-    let feed = await parser.parseURL('https://vnreview.vn/feed/-/rss/home');
-    res.json(feed);
-});
-
-app.get("/gia-xang", async (req, res) => {
+app.post("/gia-xang", async (req, res) => {
     crawler.LayGiaXang().then(result => {
-        res.json(result);
+        let objRes = {
+            data: [
+                {
+                    message: "Giá xăng 92: " + result.gia_xang_92 + " vnđ\nGiá xăng 95: " + result.gia_xang_95 + " vnđ"
+                }
+            ]
+        }
+        res.json(objRes);
     }).catch(() => {
         res.status(500).send("Da co loi xay ra");
     })
