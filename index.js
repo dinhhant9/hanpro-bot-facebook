@@ -46,15 +46,26 @@ app.post("/thoi-tiet", async (req, res) => {
 
 app.post("/luong", async (req, res) => {
     let a = moment();
-    let b = moment().add(1, 'M').set("date", 5);
+
+    let b = moment().set("date", 5);
+
+    let dayOfMonth = a.date();
+
+    console.log(dayOfMonth);
+
+    if (dayOfMonth > 5) {
+        b = b.add(1, 'M')
+    }
 
     let dayOfWeek = b.day()
     if (dayOfWeek === 0) {
-        b = moment().add(1, 'M').set("date", 6);
+        b = b.set("date", 6);
     }
     if (dayOfWeek === 6) {
-        b = moment().add(1, 'M').set("date", 4);
+        b = b.set("date", 4);
     }
+
+    
 
     let diff = a.diff(b, 'days')
 
