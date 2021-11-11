@@ -78,7 +78,7 @@ app.post("/gia-xang", async (req, res) => {
 app.post("/ai", async (req, res) => {
     let message = req.body.senderMessage.trim().toLowerCase()
 
-    if (['noel', 'giáng sinh', 'xmas', 'christmas'].includes(message)) {
+    if (isItemInArrayContainsInString(['noel', 'giáng sinh', 'xmas', 'christmas'], message)) {
         var a = moment();
         var b = moment([a.year(), 11, 24]);
         let diff = b.diff(a, 'days')
@@ -94,7 +94,7 @@ app.post("/ai", async (req, res) => {
         return
     }
 
-    if (['năm mới', 'hết năm', 'tết tây', 'new year'].includes(message)) {
+    if (isItemInArrayContainsInString(['năm mới', 'hết năm', 'tết tây', 'new year'], message)) {
         var a = moment();
         var b = moment([a.year() + 1, 0, 1]);
         let diff = b.diff(a, 'days')
@@ -104,40 +104,40 @@ app.post("/ai", async (req, res) => {
         return
     }
 
-    if (['cảm ơn', 'thank you', 'tạm biệt', 'goodbye'].includes(message)) {
+    if (isItemInArrayContainsInString(['cảm ơn', 'thank you', 'tạm biệt', 'goodbye'], message)) {
         let message = "Cảm ơn bạn"
         sendResponse(res, message)
         return
     }
 
-    if (['xin chào', 'hello', 'hi', 'chào bạn', 'chào'].includes(message)) {
+    if (isItemInArrayContainsInString(['xin chào', 'hello', 'hi', 'chào bạn', 'chào'], message)) {
         let message = "Xin chào bạn"
         sendResponse(res, message)
         return
     }
 
-    if (['không?', 'k?', 'ko?'].includes(message)) {
+    if (isItemInArrayContainsInString(['không?', 'k?', 'ko?'], message)) {
         let messageArr = ['Có', 'Không']
         let random = messageArr[Math.floor(Math.random() * messageArr.length)]
         sendResponse(res, random)
         return
     }
 
-    if (['ai là', 'ai laf', 'ai la', 'who is'].includes(message)) {
+    if (isItemInArrayContainsInString(['ai là', 'ai laf', 'ai la', 'who is'], message)) {
         let messageArr = ['Nai', 'Đon', 'Dương', 'Back', 'Quâng', 'Vương', 'Dance', 'Duck', 'Tiếng']
         let random = messageArr[Math.floor(Math.random() * messageArr.length)]
         sendResponse(res, "Là ông " + random)
         return
     }
 
-    if (['xin phép', 'xin phep'].includes(message)) {
+    if (isItemInArrayContainsInString(['xin phép', 'xin phep'], message)) {
         let messageArr = ['Nai', 'Đon', 'Dương', 'Back', 'Quâng', 'Vương', 'Dance', 'Duck', 'Tiếng']
         let random = messageArr[Math.floor(Math.random() * messageArr.length)]
         sendResponse(res, "Djt cm ông " + random)
         return
     }
 
-    if (['làm gì', 'làm gi', 'lam gì', 'lam gi'].includes(message)) {
+    if (isItemInArrayContainsInString(['làm gì', 'làm gi', 'lam gì', 'lam gi'], message)) {
         let messageArr = ['rửa đít', 'ỉa', 'rặn', 'lứng', 'sc', 'nhậu', 'chơi đỉ', 'massage', 'bắn', 'chụp hình nude', 'cởi chuồng', 'sóc lọ', 'cống hiến cho công ty lớn', 'chat sẽ', 'xem phim heo', 'xem sẽ gầy', 'tét đít', 'mân mê con cu', 'cạo lông chim', 'bóp dái', 'chụp ảnh cu', 'bôi dầu gió vào cu']
         let random = messageArr[Math.floor(Math.random() * messageArr.length)]
         sendResponse(res, "Đang " + random)
@@ -148,6 +148,15 @@ app.post("/ai", async (req, res) => {
     res.send("Han pro");
 
 });
+
+function isItemInArrayContainsInString(array, string) {
+    for (let i = 0; i < array.length; i++) {
+        if (string.includes(array[i])) {
+            return true;
+        }
+    }
+    return false;
+}
 
 function sendResponse(res, message) {
     let objRes = {
