@@ -110,7 +110,7 @@ app.post("/ai", async (req, res) => {
         return
     }
 
-    if (isItemInArrayContainsInString(['xin chào', 'hello', 'hi', 'chào bạn', 'chào'], message)) {
+    if (isItemInArrayContainsInString(['xin chào', 'hello', 'chào bạn', 'chào'], message)) {
         let message = "Xin chào bạn"
         sendResponse(res, message)
         return
